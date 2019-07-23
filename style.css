@@ -1,0 +1,31 @@
+html {
+    text-align: center;
+}
+
+.grid {
+    display: grid;
+    height: 500px;
+    width: 510px;
+    margin: auto;
+    grid-gap: 1px;
+}
+
+
+button {
+  height: 30px;
+  width: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+body {
+    background-image: url("etch.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 750px 850px;
+    padding-top: 175px;
+    padding-bottom: 85px;
+
+}
+
+

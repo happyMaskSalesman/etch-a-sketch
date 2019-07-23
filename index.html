@@ -1,0 +1,127 @@
+<!DOCTYPE>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link href="style.css" type="text/css" rel="stylesheet">
+        <title>Etch-a-Sketch</title>
+    </head>
+    <body>
+        <div class="container">
+
+        </div>
+        <div class ="grid" id="body">
+
+        </div>
+        <br><br>
+        <div id="buttons">
+            <button id="reset">Reset</button><br><br>
+            <button id="black">Black</button>
+            <button id="shade">Shade</button>
+            <button id="random">Random</button> 
+        </div>
+        <script>
+            let selectGrid = document.querySelector('.grid');
+            let reset = document.querySelector('#reset');
+            let shader = document.querySelector('#shade');
+            let random = document.querySelector('#random');
+            let black = document.querySelector('#black');
+
+            createGrid(16);
+            hover();
+
+            //eventListeners
+
+            shader.addEventListener('click', shade);
+            black.addEventListener('click', hover);
+            random.addEventListener('click', randomize)
+
+            reset.addEventListener('click', () => {
+     
+                resetGrid();
+                resetPrompt();
+
+             
+            });
+
+
+
+            //functions
+
+            function createGrid(x) {
+                selectGrid.style.gridTemplateColumns = `repeat(${x}, 1fr)`;
+                selectGrid.style.gridTemplateRows = `repeat(${x}, 1fr)`;
+
+                for (let i = 0; i < x * x; i++) {
+                    let createCell = document.createElement('div');
+                    
+                    createCell.classList.add("gridCell");
+                    createCell.setAttribute("opac", 0);
+                    createCell.style.backgroundColor = 'lightgray';
+                    selectGrid.appendChild(createCell);
+                  };
+
+                hover(); 
+            };
+
+
+
+            function resetGrid() {
+                while(selectGrid.firstChild) {
+                    selectGrid.removeChild(selectGrid.firstChild);
+                };
+            };
+
+            function shade() {
+                let hoverCell = document.querySelectorAll('.gridCell');
+
+                hoverCell.forEach(createCell => {
+                    createCell.addEventListener('mouseover', e => {
+                        let opac = Number(e.target.getAttribute("opac"));
+                        e.target.style.backgroundColor = 'black';
+                        e.target.style.opacity = opac;
+                        e.target.setAttribute("opac", opac + 0.2);
+               
+                    });
+                });
+            };
+
+            function randomize() {
+                let hoverCell = document.querySelectorAll('.gridCell');
+
+                hoverCell.forEach(createCell => {
+                    createCell.addEventListener('mouseover', e => {
+                        e.target.style.opacity = 1;
+                        e.target.style.backgroundColor = `rgb(${Math.random() * 256},${Math.random() * 256},${Math.random() * 256})`;
+                    });
+                  });
+            };
+
+            function hover() {
+                let hoverCell = document.querySelectorAll('.gridCell');
+
+
+                hoverCell.forEach(createCell => {
+                    createCell.addEventListener('mouseover', e => {
+                        e.target.style.opacity = 1;
+                        e.target.style.backgroundColor = 'black';
+                     }); 
+                  });
+                };
+
+                function resetPrompt() {
+                    let newDim = prompt("Choose a new dimension (Number 1-100)");
+
+                    if (newDim < 1 || newDim > 100) {
+                        alert("Please choose a valid number (1-100)");
+                        return valid();
+                        } else {
+                            createGrid(newDim);
+                        };
+                };
+
+                function valid() {
+                    return resetPrompt();
+                };
+        </script>
+    </body>
+</html>
